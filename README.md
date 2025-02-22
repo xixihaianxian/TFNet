@@ -13,10 +13,13 @@
 ---
 ### Data Preparation
 
-1. Download the CE-CSL Dataset [[download link]]https://pan.baidu.com/s/1OHJLRfLFPWqkxvLBr4KAQg 
+1. Download the CE-CSL Dataset[[download link]]https://pan.baidu.com/s/1OHJLRfLFPWqkxvLBr4KAQg 
    extraction code：0000
    
 2. After finishing dataset download, extract it.
+
+3. ﻿Download the latest weight, test WER is 32.46%.[[download link]]https://pan.baidu.com/s/1KPbDL2nAvBsSsTDwc9og0A 
+   extraction code：0000
 
 ---
 ### Data Process

@@ -171,13 +171,13 @@ class moduleNet(nn.Module):
             self.temporal_model1 = BiLSTMLayer(rnn_type='LSTM', input_size=hidden_size, hidden_size=hidden_size,
                                               num_layers=2, bidirectional=True)
 
-            self.classifier1 = Module.NormLinear(hidden_size, self.outDim)
-            self.classifier2 = self.classifier1
+            self.classifier11 = Module.NormLinear(hidden_size, self.outDim)
+            self.classifier22 = self.classifier11
 
-            self.classifier3 = Module.NormLinear(hidden_size, self.outDim)
-            self.classifier4 = self.classifier3
+            self.classifier33 = Module.NormLinear(hidden_size, self.outDim)
+            self.classifier44 = self.classifier33
 
-            self.classifier5 = Module.NormLinear(hidden_size, self.outDim)
+            self.classifier55 = Module.NormLinear(hidden_size, self.outDim)
 
             self.reLU = nn.ReLU(inplace=True)
 
@@ -469,20 +469,20 @@ class moduleNet(nn.Module):
             outputs = self.temporal_model(x, lgt)
             outputs1 = self.temporal_model1(x1, lgt)
 
-            encoderPrediction = self.classifier1(outputs['predictions'])
+            encoderPrediction = self.classifier11(outputs['predictions'])
             logProbs1 = encoderPrediction
 
-            encoderPrediction = self.classifier2(x)
+            encoderPrediction = self.classifier22(x)
             logProbs2 = encoderPrediction
 
-            encoderPrediction = self.classifier3(outputs1['predictions'])
+            encoderPrediction = self.classifier33(outputs1['predictions'])
             logProbs3 = encoderPrediction
 
-            encoderPrediction = self.classifier4(x1)
+            encoderPrediction = self.classifier44(x1)
             logProbs4 = encoderPrediction
 
             x2 = outputs['predictions'] + outputs1['predictions']
-            logProbs5 = self.classifier5(x2)
+            logProbs5 = self.classifier55(x2)
 
             if not isTrain:
                 logProbs1 = logProbs5
