@@ -10,7 +10,7 @@ import DataProcessMoudle
 
 def seed_torch(seed=0):
     random.seed(seed)
-    # os.environ['PYTHONHASHSEED'] = str(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
     np.random.seed(seed)
 
 def main(dataPath, saveDataPath):
