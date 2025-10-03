@@ -84,8 +84,10 @@ def main(dataPath, saveDataPath):
 
 
 if __name__ == '__main__':
-    dataPath = "/home/lj/lj/program/python/DataSets/CE-CSL/video"
-    saveDataPath = "/home/lj/lj/program/python/DataSets/CE-CSL/video2"
+    # dataPath = "/home/lj/lj/program/python/DataSets/CE-CSL/video"
+    dataPath = "/usr/Sign-Language-Recognition/CE-CSL/video"
+    # saveDataPath = "/home/lj/lj/program/python/DataSets/CE-CSL/video2"
+    saveDataPath = "/usr/Sign-Language-Recognition/CE-CSL/video2"
 
     seed_torch()
     main(dataPath, saveDataPath)
