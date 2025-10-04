@@ -7,15 +7,21 @@ import imageio
 import cv2
 import csv
 import DataProcessMoudle
+from typing import Dict
 
+# 设置随机种子
 def seed_torch(seed=0):
     random.seed(seed)
-    os.environ['PYTHONHASHSEED'] = str(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed) # 为python环境设置随机种子
     np.random.seed(seed)
 
-def main(dataPath, saveDataPath):
-    fileTypes = sorted(os.listdir(dataPath))
-
+# 数据预处理
+def main(dataPath:str, saveDataPath:str)->None:
+    r"""
+    dataPath:原来数据的位置
+    saveDataPath:保存处理之后数据的位置
+    """
+    fileTypes = sorted(os.listdir(dataPath)) #fileTypes=["test","dev","train"]
     framesList = []
     fpsList = []
     videoTimeList = []
@@ -37,23 +43,26 @@ def main(dataPath, saveDataPath):
 
                 if not os.path.exists(saveImagePath):
                     os.makedirs(saveImagePath)
-
+                # 获取视频的信息
                 vid = imageio.get_reader(videoPath)  # 读取视频
                 # nframes = vid.get_meta_data()['nframes']
-                nframes = vid.count_frames()
-                fps = vid.get_meta_data()['fps']
-                videoTime = vid.get_meta_data()['duration']
-                resolution = vid.get_meta_data()['size']
+                nframes = vid.count_frames() # 获取总总帧数
+                fps = vid.get_meta_data()['fps'] # 获取fps(每秒里面含有多少帧)
+                videoTime = vid.get_meta_data()['duration']# 视频的时长(单位s)
+                resolution = vid.get_meta_data()['size']# 视频的分辨率(width,height)
 
+                # 保存相关信息
                 framesList.append(nframes)
                 fpsList.append(fps)
                 videoTimeList.append(videoTime)
                 resolutionList.append(resolution)
 
-                for i in range(nframes):
+                for i in range(nframes): # 循环视频的所有帧
                     try:
-                        image = vid.get_data(i)
+                        image = vid.get_data(i) # 取出视频的第 i 帧，得到一个图像数组。
+                        # 将BGR模式转化为RBG模式
                         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                        # 改变形状大小
                         image = cv2.resize(image, (256, 256))
 
                         nameString = str(i)
@@ -66,7 +75,7 @@ def main(dataPath, saveDataPath):
                         print(nframes)
                         print(videoPath)
 
-                vid.close()
+                vid.close() # 关闭视频文件并释放资源
 
     maxframeNum = max(framesList)
     minframeNum = min(framesList)
